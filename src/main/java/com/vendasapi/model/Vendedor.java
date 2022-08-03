@@ -19,12 +19,6 @@ public class Vendedor {
 	
 	
 
-	public Vendedor(Long codigo, String nome) {
-		super();
-		this.codigo = codigo;
-		this.nome = nome;
-	}
-
 	public Long getCodigo() {
 		return codigo;
 	}
