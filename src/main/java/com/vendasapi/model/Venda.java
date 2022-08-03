@@ -1,7 +1,7 @@
 package com.vendasapi.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -20,12 +21,13 @@ public class Venda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataVenda;
-	
+	private Date dataVenda;
+
 	private BigDecimal valor;
-	
+
+	@NotNull
 	@ManyToOne
 	private Vendedor vendedor;
 
@@ -40,11 +42,11 @@ public class Venda {
 		this.codigo = codigo;
 	}
 
-	public LocalDate getDataVenda() {
+	public Date getDataVenda() {
 		return dataVenda;
 	}
 
-	public void setDataVenda(LocalDate dataVenda) {
+	public void setDataVenda(Date dataVenda) {
 		this.dataVenda = dataVenda;
 	}
 
@@ -96,7 +98,5 @@ public class Venda {
 		Venda other = (Venda) obj;
 		return Objects.equals(codigo, other.codigo);
 	}
-	
-	
-	
+
 }
