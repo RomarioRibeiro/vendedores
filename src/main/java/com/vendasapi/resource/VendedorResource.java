@@ -1,12 +1,12 @@
 package com.vendasapi.resource;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.vendasapi.event.RecursoCriadoEvent;
 import com.vendasapi.model.Vendedor;
 import com.vendasapi.repository.VendedorRepository;
 
@@ -28,6 +28,10 @@ public class VendedorResource {
 
 	@Autowired
 	private VendedorRepository vendedorRepository;
+	
+	@Autowired
+	private ApplicationEventPublisher Publisher;
+	
 	
 	@GetMapping
 	public ResponseEntity<?> listar(){
@@ -46,10 +50,9 @@ public class VendedorResource {
 	public ResponseEntity<Vendedor> criarVendedor(@Valid @RequestBody Vendedor vendedor, HttpServletResponse response) {
 		Vendedor vendedorSalva = vendedorRepository.save(vendedor);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{codigo}")
-		.buildAndExpand(vendedorSalva.getCodigo()).toUri();
+		Publisher.publishEvent(new RecursoCriadoEvent(this, response, vendedorSalva.getCodigo()));
 		
-		return ResponseEntity.created(uri).body(vendedorSalva);
+		return ResponseEntity.status(HttpStatus.CREATED).body(vendedorSalva);
 	}
 	
 	
