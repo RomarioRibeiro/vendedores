@@ -30,26 +30,21 @@ public class VendasApplication implements CommandLineRunner{
 		
 		Vendedor vendedor2 = new Vendedor();
 		vendedor2.setCodigo(null);
-		vendedor2.setNome("Romario Ribeiro");
+		vendedor2.setNome("João da Silva");
 		
 		Vendedor vendedor3 = new Vendedor();
 		vendedor3.setCodigo(null);
-		vendedor3.setNome("Romario Ribeiro");
+		vendedor3.setNome("Maria das Rosas");
 		
 		Vendedor vendedor4 = new Vendedor();
 		vendedor4.setCodigo(null);
-		vendedor4.setNome("Romario Ribeiro");
+		vendedor4.setNome("José Oliveira");
 		
 		Vendedor vendedor5 = new Vendedor();
 		vendedor5.setCodigo(null);
-		vendedor5.setNome("Romario Ribeiro");
+		vendedor5.setNome("Luis das Couves");
 		
-		
-//		Vendedor vendedor1 = new Vendedor(null, "Romario Ribeiro");
-//		Vendedor vendedor2 = new Vendedor(null, "João da Silva");
-//		Vendedor vendedor3 = new Vendedor(null, "Maria das Rosas");
-//		Vendedor vendedor4 = new Vendedor(null, "José Oliveira");
-//		Vendedor vendedor5 = new Vendedor(null, "Luis das Couves");
+
 
 		
 		
