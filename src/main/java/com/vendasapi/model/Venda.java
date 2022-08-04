@@ -31,8 +31,7 @@ public class Venda {
 	@ManyToOne
 	private Vendedor vendedor;
 
-	private BigDecimal totalVendas;
-	private BigDecimal mediaVendas;
+	
 
 	public Long getCodigo() {
 		return codigo;
@@ -66,21 +65,7 @@ public class Venda {
 		this.vendedor = vendedor;
 	}
 
-	public BigDecimal getTotalVendas() {
-		return totalVendas;
-	}
-
-	public void setTotalVendas(BigDecimal totalVendas) {
-		this.totalVendas = totalVendas;
-	}
-
-	public BigDecimal getMediaVendas() {
-		return mediaVendas;
-	}
-
-	public void setMediaVendas(BigDecimal mediaVendas) {
-		this.mediaVendas = mediaVendas;
-	}
+	
 
 	@Override
 	public int hashCode() {
