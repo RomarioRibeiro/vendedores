@@ -3,6 +3,7 @@ package com.vendasapi.resource;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vendasapi.event.RecursoCriadoEvent;
 import com.vendasapi.model.Venda;
 import com.vendasapi.repository.VendaRepository;
+import com.vendasapi.service.VendaService;
 
 @RestController
 @RequestMapping("/vendas")
@@ -25,6 +27,9 @@ public class VendaResource {
 
 	@Autowired
 	private VendaRepository vendaRepository;
+	
+	@Autowired
+	private VendaService vendaService;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -46,8 +51,8 @@ public class VendaResource {
 	
 	
 	@PostMapping
-	public ResponseEntity<Venda> criarVenda(@RequestBody Venda venda, HttpServletResponse response) {
-		Venda vendaSalva = vendaRepository.save(venda);
+	public ResponseEntity<Venda> criarVenda(@Valid @RequestBody Venda venda, HttpServletResponse response) {
+		Venda vendaSalva = vendaService.adicionarUmaVenda(venda);
 			
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, vendaSalva.getCodigo()));
 		

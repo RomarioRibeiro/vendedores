@@ -8,4 +8,6 @@ import com.vendasapi.model.Vendedor;
 @Repository
 public interface VendedorRepository extends JpaRepository<Vendedor, Long>{
 	
+
+	
 }
