@@ -1,5 +1,6 @@
 package com.vendasapi.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -11,7 +12,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "vendas")
-public class Vendas {
+public class Vendas implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@JsonIgnore
 	@EmbeddedId
@@ -21,6 +24,8 @@ public class Vendas {
 	
 	private BigDecimal mediaVendas;
 
+	public Vendas() {}
+	
 	public Vendas(Venda venda, Vendedor vendedor, BigDecimal totalVendas, BigDecimal mediaVendas) {
 		super();
 		this.totalVendas = totalVendas;
@@ -52,7 +57,8 @@ public class Vendas {
 	public void setMediaVendas(BigDecimal mediaVendas) {
 		this.mediaVendas = mediaVendas;
 	}
-
+	
+	@JsonIgnore
 	public Venda getVenda() {
 		return codigo.getVenda();
 	}

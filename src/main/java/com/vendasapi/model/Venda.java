@@ -1,22 +1,29 @@
 package com.vendasapi.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "venda")
-public class Venda {
+public class Venda implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +37,10 @@ public class Venda {
 	@NotNull
 	@ManyToOne
 	private Vendedor vendedor;
-
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "codigo.venda")
+	private Set<Vendas> ven = new HashSet<>();
 
 	public Long getCodigo() {
 		return codigo;
@@ -65,7 +74,13 @@ public class Venda {
 		this.vendedor = vendedor;
 	}
 
-	
+	public Set<Vendas> getVen() {
+		return ven;
+	}
+
+	public void setVen(Set<Vendas> ven) {
+		this.ven = ven;
+	}
 
 	@Override
 	public int hashCode() {
