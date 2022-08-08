@@ -66,6 +66,7 @@ public class VendaRepositoryImpl implements VendaRepositoryQuery {
 		criteria.select(builder.construct(ResumoVenda.class
 				, root.get(Venda_.codigo), root.get(Venda_.dataVenda)
 				, root.get(Venda_.valor)
+				, root.get(Venda_.vendedor).get(Vendedor_.codigo)
 				, root.get(Venda_.vendedor).get(Vendedor_.nome)));
 		
 		Predicate[] predicates = criarRestricoes(vendaFilter, builder, root);

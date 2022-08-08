@@ -59,7 +59,7 @@ public class VendaResource {
 	
 	
 	@PostMapping
-	public ResponseEntity<Venda> criarVenda(@Valid @RequestBody VendaFilter venda, HttpServletResponse response) {
+	public ResponseEntity<Venda> criarVenda(@Valid @RequestBody Venda venda, HttpServletResponse response) {
 		Venda vendaSalva = vendaService.adicionarUmaVenda(venda);
 			
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, vendaSalva.getCodigo()));

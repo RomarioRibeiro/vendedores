@@ -8,15 +8,18 @@ public class ResumoVenda {
 	private Long codigo;
 	private Date dataVenda;
 	private BigDecimal valor;
+	private Long vendedorCodigo;
 	private String vendedor;
 
 	
 
-	public ResumoVenda(Long codigo, Date dataVenda, BigDecimal valor, String vendedor) {
+	public ResumoVenda(Long codigo, Date dataVenda, BigDecimal valor, Long vendedorcodigo ,String vendedor) {
 		this.codigo = codigo;
 		this.dataVenda = dataVenda;
 		this.valor = valor;
+		this.vendedorCodigo = vendedorcodigo;
 		this.vendedor = vendedor;
+		
 	}
 
 	public Long getCodigo() {
@@ -49,6 +52,14 @@ public class ResumoVenda {
 
 	public void setVendedor(String vendedor) {
 		this.vendedor = vendedor;
+	}
+
+	public Long getVendedorCodigo() {
+		return vendedorCodigo;
+	}
+
+	public void setVendedorCodigo(Long vendedorCodigo) {
+		this.vendedorCodigo = vendedorCodigo;
 	}
 
 
