@@ -1,12 +1,12 @@
 package com.vendasapi.resource;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vendasapi.event.RecursoCriadoEvent;
 import com.vendasapi.model.Venda;
 import com.vendasapi.repository.VendaRepository;
+import com.vendasapi.repository.filter.VendaFilter;
+import com.vendasapi.repository.projection.ResumoVenda;
 import com.vendasapi.service.VendaService;
 
 @RestController
@@ -36,10 +38,16 @@ public class VendaResource {
 	
 	
 	@GetMapping
-	public ResponseEntity<?> listar() {
-		List<Venda> venda = vendaRepository.findAll();
+	public Page<Venda> pesquisar(VendaFilter vendaFilter, Pageable pageable) {
+		return vendaRepository.filter(vendaFilter, pageable);
+		
+	}
+	
+	//paginação com um resulmo do dados informados localhost:8080/vendas?resumo
+	@GetMapping(params = "resumo")
+	public Page<ResumoVenda> resumir(VendaFilter vendaFilter, Pageable pageable) {
 				
-		return !venda.isEmpty() ? ResponseEntity.ok(venda): ResponseEntity.notFound().build();
+		return vendaRepository.resumir(vendaFilter, pageable);
 	}
 	
 	@GetMapping("/{codigo}")
@@ -51,7 +59,7 @@ public class VendaResource {
 	
 	
 	@PostMapping
-	public ResponseEntity<Venda> criarVenda(@Valid @RequestBody Venda venda, HttpServletResponse response) {
+	public ResponseEntity<Venda> criarVenda(@Valid @RequestBody VendaFilter venda, HttpServletResponse response) {
 		Venda vendaSalva = vendaService.adicionarUmaVenda(venda);
 			
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, vendaSalva.getCodigo()));
