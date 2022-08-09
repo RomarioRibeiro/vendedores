@@ -1,6 +1,5 @@
 package com.vendasapi.service;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +34,16 @@ public class VendaService {
 		System.out.println(obj.getVendedor());
 		System.out.println(vend);
 		vendaRepository.save(venda);
-		BigDecimal somaDaVenda = new BigDecimal(0);
-		for(Vendas vens :  obj.getVen()) {
-			vens.setMediaVendas(vens.getMediaVendas().add(vens.getMediaVendas()));
+		Vendas vens = new Vendas();
+		vens.setVenda(venda);
+		vens.setVendedor(vend);
 		VendasPK vdPK = new VendasPK();
 		vdPK.setVenda(venda);
+		vdPK.setVendedor(vens.getCodigo().getVendedor());
 		vens.setCodigo(vdPK);
-		vendasRepository.save(vdPK);
+		vendasRepository.save(vens);
 		
-		}
+		
 		return vendaRepository.save(venda);
 	}
 	

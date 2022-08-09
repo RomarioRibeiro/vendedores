@@ -2,7 +2,6 @@ package com.vendasapi;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,15 +97,15 @@ public class VendasApplication implements CommandLineRunner{
 			
 		vendaRepository.saveAll(Arrays.asList(venda1, venda2, venda3, venda4, venda5));
 		
-		Vendas vendas1 = new Vendas(venda1, vendedor2, BigDecimal.valueOf(50),BigDecimal.valueOf(30) );
+		Vendas vendas1 = new Vendas(venda1, vendedor1, BigDecimal.valueOf(50),BigDecimal.valueOf(30) );
 		
-		Vendas vendas2 = new Vendas(venda2, vendedor3, BigDecimal.valueOf(55),BigDecimal.valueOf(20) );
+		Vendas vendas2 = new Vendas(venda2, vendedor2, BigDecimal.valueOf(55),BigDecimal.valueOf(20) );
 
-		Vendas vendas3 = new Vendas(venda1, vendedor1, BigDecimal.valueOf(10),BigDecimal.valueOf(10) );
+		Vendas vendas3 = new Vendas(venda3, vendedor3, BigDecimal.valueOf(10),BigDecimal.valueOf(10) );
 
 		venda1.getVen().addAll(Arrays.asList(vendas1));
-		
-		vendedor2.getVen().addAll(Arrays.asList(vendas2));
+		venda2.getVen().addAll(Arrays.asList(vendas2));
+		venda3.getVen().addAll(Arrays.asList(vendas3));
 		
 		vendasRepository.saveAll(Arrays.asList(vendas1, vendas2, vendas3));
 		

@@ -14,14 +14,14 @@ import com.vendasapi.repository.VendasRepository;
 @RestController
 @RequestMapping("/totalvendas")
 public class VendasResource {
-	
+
 	@Autowired
 	private VendasRepository vendasRepository;
-	
+
 	@GetMapping
 	public ResponseEntity<?> listaVendas() {
 		List<Vendas> vendas = vendasRepository.findAll();
 		return !vendas.isEmpty() ? ResponseEntity.ok(vendas) : ResponseEntity.notFound().build();
 	}
-	
+
 }

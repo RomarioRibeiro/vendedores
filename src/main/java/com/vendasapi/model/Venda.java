@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "venda")
@@ -38,7 +37,7 @@ public class Venda implements Serializable{
 	@ManyToOne
 	private Vendedor vendedor;
 	
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "codigo.venda")
 	private Set<Vendas> ven = new HashSet<>();
 
